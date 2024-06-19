@@ -18,12 +18,12 @@ function Left() {
   }
    },[cart])
 
-  //  useEffect(()=>{
-  //      let copyArray = [...products];
-  //      setCart(copyArray.filter((item,index)=>{
-  //       return item.quantity > 0;
-  //      }))
-  //  },[handleDecrement,handleIncrement,handleCartRemove])
+   useEffect(()=>{
+       let copyArray = [...products];
+       setCart(copyArray.filter((item,index)=>{
+        return item.quantity > 0;
+       }))
+   },[products])
 
 
   function handleCartRemove(e, id){
