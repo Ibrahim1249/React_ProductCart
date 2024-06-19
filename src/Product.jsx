@@ -2,7 +2,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
-function Product({image,phoneName,price,id,cartCount,handleCartRemove,handleIncrement,handleDecrement,index}) {
+function Product({image,phoneName,price,id,quantity,handleCartRemove,handleIncrement,handleDecrement,index}) {
   return (
     <>
           <div className="item-container">
@@ -23,7 +23,7 @@ function Product({image,phoneName,price,id,cartCount,handleCartRemove,handleIncr
 
         <div className="counter">
           <RemoveIcon  style={{"fontSize":"18px","cursor":"pointer"}} onClick={()=>handleDecrement(index)} />
-          <span>{cartCount}</span>
+          <span>{quantity}</span>
           <AddIcon style={{"fontSize":"18px","cursor":"pointer"}} onClick={()=>{handleIncrement(index)}}/>
         </div>
       </div>

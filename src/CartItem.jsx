@@ -1,19 +1,18 @@
 
-import image from "./assets/phone.png"
 
-function CartItem() {
+function CartItem({item}) {
   return (
     <>
       <div className="cart-item">
          
          <div className="cart-info">
-            <img src={image} alt="" />
-            <p>Samsung</p>
+            <img src={item.image} alt="" />
+            <p>{item.phoneName}</p>
          </div>
          <div className="cart-quantity">
-            <p>1</p>
+            <p>{item.quantity}</p>
             <span> X </span>
-            <p>399.99</p>
+            <p>{item.price}</p>
          </div>
       </div>
     </>

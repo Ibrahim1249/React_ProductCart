@@ -1,11 +1,30 @@
-import { useContext } from "react"
+import { useContext , useEffect } from "react"
 import { productContext } from "./App"
 
 import Product from "./Product"
 
 function Left() {
 
-  const { products , setProducts } = useContext(productContext)
+  const { products , setProducts , total , setTotal , cart , setCart} = useContext(productContext)
+
+  
+  useEffect(()=>{
+    let totalAmount = 0;
+    if(cart.length > 0){
+    cart.forEach((item,index)=>{
+     totalAmount += Number(item.price) * Number(item.quantity);
+    })
+    setTotal(totalAmount);
+  }
+   },[cart])
+
+  //  useEffect(()=>{
+  //      let copyArray = [...products];
+  //      setCart(copyArray.filter((item,index)=>{
+  //       return item.quantity > 0;
+  //      }))
+  //  },[handleDecrement,handleIncrement,handleCartRemove])
+
 
   function handleCartRemove(e, id){
     e.preventDefault()
@@ -18,14 +37,14 @@ function Left() {
 
     let copyCart = [...products];
     
-     let count = copyCart[index]["cartCount"] 
+     let count = copyCart[index]["quantity"] 
   
      if(count > 0){
-      copyCart[index]["cartCount"] -= 1;
+      copyCart[index]["quantity"] -= 1;
      }
      setProducts(copyCart)
 
-     if(count > 0 && count < 2){
+     if(count <= 0){
       setProducts(products.filter((cartItem,idx)=>{
         return index !== idx;
       }))
@@ -34,7 +53,7 @@ function Left() {
 
 function handleIncrement(index){
   let copyCart = [...products];
-  copyCart[index]["cartCount"] += 1;
+  copyCart[index]["quantity"] += 1;
   setProducts(copyCart)
 
 }
@@ -43,10 +62,13 @@ function handleIncrement(index){
    <>
      <div className="left">
        <h2>Product</h2>
-       {products.map((dt,idx)=>{
-        return <Product key={idx} image={dt.image} phoneName={dt.phoneName} price={dt.price} id={dt.id} cartCount={dt.cartCount} 
+
+       {products.length > 0 ?  products.map((dt,idx)=>{
+        return <Product key={idx} image={dt.image} phoneName={dt.phoneName} price={dt.price} id={dt.id} quantity={dt.quantity} 
         handleCartRemove={handleCartRemove} handleDecrement={handleDecrement} handleIncrement={handleIncrement} index={idx}/>
-     })}
+     })   
+       : <div className="refresh">No Product is their !! kindly Refresh </div>}
+      
      </div>
    </>
   )

@@ -1,29 +1,36 @@
 
 
-import React from 'react'
+import React, { useContext } from 'react'
 import CartItem from "./CartItem"
+import { productContext } from './App';
 
 function Right() {
+  const {cart , setCart , total } = useContext(productContext);
+
+
   return (
    <>
     <div className="right">
     <h2>Cart</h2>
      
-     <div className="cart-container">
+
+     {cart.length > 0 ? 
+     (<div className="cart-container">
       <div className="carts">
-      <CartItem />
-      <CartItem />
-      <CartItem />
-      <CartItem />
+        {cart.map((item,index)=>{
+          return <CartItem key={index} item={item}/>
+        })}
+     
       </div>
       
       <div className="total-container">
         <p>Total : </p>
-        <p>5000 $ </p>
+        <p> $ {total.toFixed(2)}  </p>
       </div>
-     </div>
+     </div>)
 
-
+     : <div className='refresh-card'>Card is Empty !!!</div>
+     }
     </div>
    </>
   )
